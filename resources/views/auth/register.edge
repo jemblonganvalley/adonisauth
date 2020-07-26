@@ -1,0 +1,113 @@
+
+
+@layout('template.layout')
+
+@section('title')
+  Register
+@endsection
+
+@section('content')
+
+    <div class="container-fluid containerRegister">
+
+        <div class="card col-sm-12 col-lg-3 shadow">
+
+            @if(flashMessage('notification'))
+                <div class="alert alert-success">
+                    {{flashMessage('notification')}}
+                </div>
+            @endif
+
+            <div class="card-body">
+
+                <form method="POST" action="{{ route('register.store') }}">
+
+                    {{ csrfField() }}
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">name</label>
+                        <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" required
+                        {{hasErrorFor('name') ? 'is-invalid' : ''}}
+                        value="{{ old('name', '') }}"
+                        >
+                        
+                        {{elIf('<small class="text-danger">$self</small>', getErrorFor('name'), hasErrorFor('name'))}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">email</label>
+                        <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp" required
+                        {{hasErrorFor('email') ? 'is-invalid' : ''}}
+                        value="{{ old('email', '') }}"
+                        >
+                        
+                        {{elIf('<small class="text-danger">$self</small>', getErrorFor('email'), hasErrorFor('email'))}}
+                    </div>
+
+            
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name='password' 
+                        {{hasErrorFor('password') ? 'is-invalid' : ''}} />
+                        {{elIf('<small class="text-danger">$self</small>', getErrorFor('password'), hasErrorFor('password'))}}
+                        
+                    </div>
+                 
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="button" class="btn btn-success" onclick="toLogin()">Login</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+
+    </div>
+  
+@endsection
+
+@section('customStyle')
+  <style>
+
+      html{
+          scroll-behavior: smooth;
+
+      }
+
+      *{
+          box-sizing: border-box;
+      }
+
+      body{
+
+            overflow-x: hidden;
+            padding: 0px;
+            margin: 0px;
+            background-color: burlywood
+      }
+
+      .containerRegister{
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+      }
+
+
+  </style>
+@endsection
+
+@section('customScript')
+    <script>
+
+        const toLogin = ()=>{
+            window.location.href = '/login'
+        }
+
+    </script>
+@endsection
